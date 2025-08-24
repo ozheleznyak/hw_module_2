@@ -1,9 +1,7 @@
-from typing import Any
-
 from src import masks
 
 
-def mask_account_card(user_input: str) -> Any:
+def mask_account_card(user_input: str) -> str:
     """функция определяет какой тип данных был подан на вход (карта или счет)
     и в зависимости от типа возвращает в замаскированном виде
     реализация основана на определении количества казанных цифр,

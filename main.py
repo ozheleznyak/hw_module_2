@@ -1,4 +1,4 @@
-from src import masks
+# from src import masks
 from src import widget
 
 if __name__ == "__main__":
@@ -8,4 +8,5 @@ if __name__ == "__main__":
     # print(masks.get_mask_account(user_account_number))
     # transaction_date_format = input("Enter your transaction timestamp: ")
     # print(widget.get_date(transaction_date_format))
-    print(widget.mask_account_card("счет 6831982476737658"))
+    user_input = input("Enter your account or card number: ")
+    print(widget.mask_account_card(user_input))
