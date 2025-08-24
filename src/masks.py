@@ -13,7 +13,7 @@ def get_mask_card_number(user_card_number: str) -> str:
             "*",
         ]
         for n in range(len(user_card_number_list)):
-            if n % 5 == 0:
+            if n == 4 or n == 9 or n == 14:
                 user_card_number_list.insert(n, " ")
         masked_user_card_number = "".join(user_card_number_list)
         return masked_user_card_number

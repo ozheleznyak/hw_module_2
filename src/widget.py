@@ -1,7 +1,28 @@
-import masks
+from typing import Any
 
-def mask_account_card():
-    """"""
+from src import masks
+
+
+def mask_account_card(user_input: str) -> Any:
+    """функция определяет какой тип данных был подан на вход (карта или счет)
+    и в зависимости от типа возвращает в замаскированном виде
+    реализация основана на определении количества казанных цифр,
+    т.к. они фиксированы и отличаются для счета и для карты"""
+    user_input_digits_only = ""
+    user_input_text = ""
+
+    for i in user_input:
+        if i.isdigit():
+            user_input_digits_only += i
+        else:
+            user_input_text += i
+
+    if len(user_input_digits_only) == 16:
+        return user_input_text + masks.get_mask_card_number(user_input_digits_only)
+    elif len(user_input_digits_only) == 20:
+        return user_input_text + masks.get_mask_account(user_input_digits_only)
+    else:
+        return f"You've entered wrong data. Please try again"
 
 
 def get_date(transaction_date_format: str) -> str:
