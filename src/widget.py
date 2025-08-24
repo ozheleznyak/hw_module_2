@@ -1,9 +1,10 @@
-from src import masks
+import masks
+
 def mask_account_card():
     """"""
 
 
-def get_date(transaction_date_format):
+def get_date(transaction_date_format: str) -> str:
     """функция для преобразования таймстэмпа в формат DD.MM.YYYY без указания времени
     реализовано с учетом того, что у формата даты есть определнный шаблон"""
     only_date_by_user = ""
