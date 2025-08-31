@@ -19,3 +19,9 @@ if __name__ == "__main__":
         print(processing.filter_by_state(user_input_transaction_list, user_input_state))
     else:
         print(processing.filter_by_state(user_input_transaction_list))
+
+    sorting_order = input("Press Y if you want ascending sorting: ")
+    if sorting_order == "Y":
+        print(processing.sort_by_date(user_input_transaction_list, False))
+    else:
+        print(processing.sort_by_date(user_input_transaction_list))
