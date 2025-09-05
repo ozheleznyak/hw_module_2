@@ -20,7 +20,7 @@ def mask_account_card(user_input: str) -> str:
     elif len(user_input_digits_only) == 20:
         return user_input_text + masks.get_mask_account(user_input_digits_only)
     else:
-        return f"You've entered wrong data. Please try again"
+        return "You've entered wrong data. Please try again"
 
 
 def get_date(transaction_date_format: str) -> str:
