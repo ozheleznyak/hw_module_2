@@ -11,8 +11,8 @@ if __name__ == "__main__":
     # print(widget.get_date(transaction_date_format))
     # user_input = input("Enter your account or card number: ")
     # print(widget.mask_account_card(user_input))
+    # print(mask_account_card('1111222233334444'))
 
-    #
     user_input_transaction_list = [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
