@@ -33,4 +33,3 @@ def get_mask_account(user_account_number: str) -> str:
         return "".join(user_account_number_list)
     else:
         raise ValueError("You've entered wrong account number. Please try again")
-
