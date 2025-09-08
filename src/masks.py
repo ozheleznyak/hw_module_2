@@ -18,7 +18,7 @@ def get_mask_card_number(user_card_number: str) -> str:
         masked_user_card_number = "".join(user_card_number_list)
         return masked_user_card_number
     else:
-        return "You've entered wrong card number. Please try again"
+        raise ValueError("You've entered wrong card number. Please try again")
 
 
 def get_mask_account(user_account_number: str) -> str:

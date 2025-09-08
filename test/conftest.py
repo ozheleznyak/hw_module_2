@@ -7,3 +7,8 @@ def card_number():
 @pytest.fixture
 def account_number():
     return '12345678901234567890'
+
+
+@pytest.fixture
+def invalid_card_number():
+    return ['', 'qqqqwwwweeeerrrr', '1234567890', '1111 2222 3333 4444', '!@#$%^&*()_+_)(*']
