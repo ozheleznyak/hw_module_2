@@ -8,9 +8,10 @@ def test_valid_card_masks(card_number):
 
 
 def test_invalid_card(invalid_card_number):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError) as abcde:
         for arg in invalid_card_number:
             get_mask_card_number(arg)
+    assert str(abcde.value) == 'You\'ve entered wrong card number. Please try again'
 
 
 
