@@ -41,8 +41,9 @@ def get_date(transaction_date_format: str) -> str:
 
     if only_date_by_user.count("-") == 2:
         only_date_by_user_list = only_date_by_user.split("-")
-        transformed_date_list = ".".join(only_date_by_user_list[-1::-1])
     else:
         raise ValueError("Wrong date format, dash is missing")
+
+    transformed_date_list = ".".join(only_date_by_user_list[-1::-1])
 
     return transformed_date_list
