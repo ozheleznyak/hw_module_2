@@ -48,8 +48,14 @@ def test_sort_no_state_provided(valid_transactions_list):
  {'date': '2017-10-14T08:21:33.419441', 'id': 615064591, 'state': 'EXECUTED'}]
 
 
-def test_no_date_list(no_date_transactions_list):
-    assert sort_by_date(no_date_transactions_list) == []
+def test_no_date_list(no_date_value_transactions_list):
+    assert sort_by_date(no_date_value_transactions_list) == []
 
 
+def test_one_date_missing(one_date_value_missing):
+    assert sort_by_date(one_date_value_missing, False) == []
 
+
+def test_no_date_key_transaction_list(no_date_key):
+    with pytest.raises(KeyError):
+        sort_by_date(no_date_key)

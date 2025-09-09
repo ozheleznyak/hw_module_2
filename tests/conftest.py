@@ -40,9 +40,27 @@ def valid_transactions_list():
 
 
 @pytest.fixture
-def no_date_transactions_list():
+def no_date_value_transactions_list():
     return [
         {"id": 41428829, "state": "EXECUTED", "date": ""},
         {"id": 939719570, "state": "EXECUTED", "date": ""},
         {"id": 594226727, "state": "CANCELED", "date": ""}
+    ]
+
+
+@pytest.fixture
+def one_date_value_missing():
+    return [
+        {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+        {"id": 939719570, "state": "EXECUTED", "date": ""},
+        {"id": 594226727, "state": "CANCELED", "date": "2022-05-12T21:27:25.241689"}
+    ]
+
+
+@pytest.fixture
+def no_date_key():
+    return [
+        {"id": 41428829, "state": "EXECUTED"},
+        {"id": 939719570, "state": "EXECUTED"},
+        {"id": 594226727, "state": "CANCELED"}
     ]
