@@ -5,7 +5,7 @@ def filter_by_state(user_dict_list: list[dict], state: str = "EXECUTED") -> list
     filtered_by_state_dict_list = []
 
     for item in user_dict_list:
-        if item["state"] == state:
+        if item["state"] == state.upper():
             filtered_by_state_dict_list.append(item)
     return filtered_by_state_dict_list
 
