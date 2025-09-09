@@ -35,7 +35,7 @@ def valid_transactions_list():
         {"id": 594226727, "state": "CANCELED", "date": "2018-12-12T21:27:25.241689"},
         {"id": 615064591, "state": "EXECUTED", "date": "2017-10-14T08:21:33.419441"},
         {"id": 594226727, "state": "REFUNDED", "date": "2018-09-12T21:27:25.241689"},
-        {"id": 615064591, "state": "REFUNDED", "date": "2018-10-14T08:21:33.419441"}
+        {"id": 615064591, "state": "REFUNDED", "date": "2018-10-14T08:21:33.419441"},
     ]
 
 
@@ -44,7 +44,7 @@ def no_date_value_transactions_list():
     return [
         {"id": 41428829, "state": "EXECUTED", "date": ""},
         {"id": 939719570, "state": "EXECUTED", "date": ""},
-        {"id": 594226727, "state": "CANCELED", "date": ""}
+        {"id": 594226727, "state": "CANCELED", "date": ""},
     ]
 
 
@@ -53,7 +53,7 @@ def one_date_value_missing():
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": ""},
-        {"id": 594226727, "state": "CANCELED", "date": "2022-05-12T21:27:25.241689"}
+        {"id": 594226727, "state": "CANCELED", "date": "2022-05-12T21:27:25.241689"},
     ]
 
 
@@ -62,7 +62,7 @@ def no_date_key():
     return [
         {"id": 41428829, "state": "EXECUTED"},
         {"id": 939719570, "state": "EXECUTED"},
-        {"id": 594226727, "state": "CANCELED"}
+        {"id": 594226727, "state": "CANCELED"},
     ]
 
 
@@ -71,7 +71,7 @@ def no_time_transactions_list():
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30"},
-        {"id": 594226727, "state": "CANCELED", "date": "2022-05-12"}
+        {"id": 594226727, "state": "CANCELED", "date": "2022-05-12"},
     ]
 
 
@@ -80,7 +80,7 @@ def only_time_transactions_list():
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "02:08:58.425572"},
-        {"id": 594226727, "state": "CANCELED", "date": "21:27:25.241689"}
+        {"id": 594226727, "state": "CANCELED", "date": "21:27:25.241689"},
     ]
 
 
@@ -89,5 +89,5 @@ def date_with_dots_transactions_list():
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019.07.03"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018.06.30"},
-        {"id": 594226727, "state": "CANCELED", "date": "2022.05.12"}
+        {"id": 594226727, "state": "CANCELED", "date": "2022.05.12"},
     ]

@@ -53,12 +53,14 @@ def test_no_state(valid_transactions_list):
 
 
 def test_no_such_state(valid_transactions_list):
-    assert filter_by_state(valid_transactions_list, 'ERROR') == []
+    assert filter_by_state(valid_transactions_list, "ERROR") == []
 
 
 def test_existing_state_lower_case(valid_transactions_list):
-    assert filter_by_state(valid_transactions_list, 'pending') == [{"id": 615064591, "state": "PENDING", "date": "2018-10-26T09:30:33.419441"}]
+    assert filter_by_state(valid_transactions_list, "pending") == [
+        {"id": 615064591, "state": "PENDING", "date": "2018-10-26T09:30:33.419441"}
+    ]
 
 
 def test_invalid_characters_state(valid_transactions_list):
-    assert filter_by_state(valid_transactions_list, '!@#$%^&*') == []
+    assert filter_by_state(valid_transactions_list, "!@#$%^&*") == []
