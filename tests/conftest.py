@@ -64,3 +64,30 @@ def no_date_key():
         {"id": 939719570, "state": "EXECUTED"},
         {"id": 594226727, "state": "CANCELED"}
     ]
+
+
+@pytest.fixture
+def no_time_transactions_list():
+    return [
+        {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03"},
+        {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30"},
+        {"id": 594226727, "state": "CANCELED", "date": "2022-05-12"}
+    ]
+
+
+@pytest.fixture
+def only_time_transactions_list():
+    return [
+        {"id": 41428829, "state": "EXECUTED", "date": "18:35:29.512364"},
+        {"id": 939719570, "state": "EXECUTED", "date": "02:08:58.425572"},
+        {"id": 594226727, "state": "CANCELED", "date": "21:27:25.241689"}
+    ]
+
+
+@pytest.fixture
+def date_with_dots_transactions_list():
+    return [
+        {"id": 41428829, "state": "EXECUTED", "date": "2019.07.03"},
+        {"id": 939719570, "state": "EXECUTED", "date": "2018.06.30"},
+        {"id": 594226727, "state": "CANCELED", "date": "2022.05.12"}
+    ]

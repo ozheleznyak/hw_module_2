@@ -49,13 +49,36 @@ def test_sort_no_state_provided(valid_transactions_list):
 
 
 def test_no_date_list(no_date_value_transactions_list):
-    assert sort_by_date(no_date_value_transactions_list) == []
+    assert sort_by_date(no_date_value_transactions_list) == [{'date': '', 'id': 41428829, 'state': 'EXECUTED'},
+ {'date': '', 'id': 939719570, 'state': 'EXECUTED'},
+ {'date': '', 'id': 594226727, 'state': 'CANCELED'}]
 
 
 def test_one_date_missing(one_date_value_missing):
-    assert sort_by_date(one_date_value_missing, False) == []
+    assert sort_by_date(one_date_value_missing, False) == [{'date': '', 'id': 939719570, 'state': 'EXECUTED'},
+ {'date': '2019-07-03T18:35:29.512364', 'id': 41428829, 'state': 'EXECUTED'},
+ {'date': '2022-05-12T21:27:25.241689', 'id': 594226727, 'state': 'CANCELED'}]
 
 
 def test_no_date_key_transaction_list(no_date_key):
-    with pytest.raises(KeyError):
-        sort_by_date(no_date_key)
+    assert sort_by_date(no_date_key) == [{'id': 41428829, 'state': 'EXECUTED'},
+ {'id': 939719570, 'state': 'EXECUTED'},
+ {'id': 594226727, 'state': 'CANCELED'}]
+
+
+def test_no_time_transaction_list(no_time_transactions_list):
+    assert sort_by_date(no_time_transactions_list) == [{'date': '2022-05-12', 'id': 594226727, 'state': 'CANCELED'},
+ {'date': '2019-07-03', 'id': 41428829, 'state': 'EXECUTED'},
+ {'date': '2018-06-30', 'id': 939719570, 'state': 'EXECUTED'}]
+
+
+def test_only_time_transactions_list(only_time_transactions_list):
+    assert sort_by_date(only_time_transactions_list) == [{'date': '21:27:25.241689', 'id': 594226727, 'state': 'CANCELED'},
+ {'date': '18:35:29.512364', 'id': 41428829, 'state': 'EXECUTED'},
+ {'date': '02:08:58.425572', 'id': 939719570, 'state': 'EXECUTED'}]
+
+
+def test_date_with_dots_transactions_list(date_with_dots_transactions_list):
+    assert sort_by_date(date_with_dots_transactions_list) == [{'date': '2022.05.12', 'id': 594226727, 'state': 'CANCELED'},
+ {'date': '2019.07.03', 'id': 41428829, 'state': 'EXECUTED'},
+ {'date': '2018.06.30', 'id': 939719570, 'state': 'EXECUTED'}]
