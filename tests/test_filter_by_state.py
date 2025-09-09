@@ -40,25 +40,25 @@ from src.processing import filter_by_state
         ),
     ],
 )
-def test_valid_transactions_list_by_state(transactions_list, state, expected):
-    assert filter_by_state(transactions_list, state) == expected
+def test_valid_transactions_list_by_state(valid_transactions_list, state, expected):
+    assert filter_by_state(valid_transactions_list, state) == expected
 
 
-def test_no_state(transactions_list):
-    assert filter_by_state(transactions_list) == [
+def test_no_state(valid_transactions_list):
+    assert filter_by_state(valid_transactions_list) == [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
         {"id": 615064591, "state": "EXECUTED", "date": "2017-10-14T08:21:33.419441"},
     ]
 
 
-def test_no_such_state(transactions_list):
-    assert filter_by_state(transactions_list, 'ERROR') == []
+def test_no_such_state(valid_transactions_list):
+    assert filter_by_state(valid_transactions_list, 'ERROR') == []
 
 
-def test_existing_state_lower_case(transactions_list):
-    assert filter_by_state(transactions_list, 'pending') == [{"id": 615064591, "state": "PENDING", "date": "2018-10-26T09:30:33.419441"}]
+def test_existing_state_lower_case(valid_transactions_list):
+    assert filter_by_state(valid_transactions_list, 'pending') == [{"id": 615064591, "state": "PENDING", "date": "2018-10-26T09:30:33.419441"}]
 
 
-def test_invalid_characters_state(transactions_list):
-    assert filter_by_state(transactions_list, '!@#$%^&*') == []
+def test_invalid_characters_state(valid_transactions_list):
+    assert filter_by_state(valid_transactions_list, '!@#$%^&*') == []
