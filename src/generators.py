@@ -30,7 +30,7 @@ def card_number_generator(start, stop):
     """Генератор, который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
     try:
-        if int(start) in range(0, 10000000000000000) and int(stop) in range(0, 10000000000000000):
+        if int(start) in range(1, 10000000000000000) and int(stop) in range(1, 10000000000000000):
             if int(start) <= int(stop):
                 for num in range(int(start), int(stop) + 1):
                     num_str = f"{num:016d}"
@@ -40,9 +40,9 @@ def card_number_generator(start, stop):
                 yield "Start value must be less or equal to stop. Please try again"
         else:
             yield ("You have gone beyond the acceptable range of values."
-                   "Please enter start/stop values in range 0 - 9999 9999 9999 9999")
+                   "Please enter start/stop values in range 1 - 9999 9999 9999 9999")
     except ValueError:
-        yield "You've entered  wrong start or stop value. Please enter digits only in range 0 - 9999 9999 9999 9999"
+        yield "You've entered  wrong start or stop value. Please enter digits only in range 1 - 9999 9999 9999 9999"
 
     # user_currency = input("Please enter currency to filter: ")
 

@@ -12,8 +12,8 @@ def test_normal_usage_card_number_generator():
 
 def test_min_min_card_number_generator():
     """тестируем использование генератора при начальном и конечном значениях равных 0"""
-    generator = card_number_generator(0, 0)
-    assert next(generator) == "0000 0000 0000 0000"
+    generator = card_number_generator(1, 1)
+    assert next(generator) == "0000 0000 0000 0001"
 
 
 def test_max_max_card_number_generator():
@@ -27,7 +27,7 @@ def test_wrong_symbols_card_number_generator():
     generator = card_number_generator("bvc", 5)
     assert (
         next(generator)
-        == "You've entered  wrong start or stop value. Please enter digits only in range 0 - 9999 9999 9999 9999"
+        == "You've entered  wrong start or stop value. Please enter digits only in range 1 - 9999 9999 9999 9999"
     )
 
 
@@ -37,7 +37,7 @@ def test_out_of_range_card_number_generator():
     assert (
         next(generator)
         == "You have gone beyond the acceptable range of values."
-           "Please enter start/stop values in range 0 - 9999 9999 9999 9999"
+           "Please enter start/stop values in range 1 - 9999 9999 9999 9999"
     )
 
 
