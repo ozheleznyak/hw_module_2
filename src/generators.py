@@ -1,7 +1,7 @@
 from data import transactions
 
 
-def filter_by_currency(transactions: list, currency: str):
+def filter_by_currency(transactions, currency):
     """Функция возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной (например, USD)."""
     try:
         filtered_transactions = list(filter(lambda x: x["operationAmount"]["currency"]["name"] == currency, transactions))
@@ -15,10 +15,13 @@ def filter_by_currency(transactions: list, currency: str):
 
 
 
-def transaction_descriptions(transactions: list):
+def transaction_descriptions(transactions):
     """Генератор, который принимает список словарей с транзакциями и возвращает описание каждой операции по очереди."""
-    for item in transactions:
-        yield item["description"]
+    try:
+        for item in transactions:
+            yield item["description"]
+    except KeyError:
+        yield "<No description for this transaction>"
 
 
 def card_number_generator(start, stop):
@@ -64,14 +67,13 @@ usd_transactions = filter_by_currency([
 # избыточных прогонов
 # for _ in range(len(transactions.test_transactions())):
 #     print(next(usd_transactions))
-print(next(usd_transactions))
 
 
-# descriptions = transaction_descriptions(transactions.test_transactions())
+descriptions = transaction_descriptions(transactions.test_transactions_no_description())
 
-# for _ in range(len(transactions.test_transactions())):
-#     # print(next(usd_transactions))
-#     print(next(descriptions))
+for _ in range(len(transactions.test_transactions_no_description())):
+    # print(next(usd_transactions))
+    print(next(descriptions))
 
 # range_start = input("Please enter range start: ")
 # range_end = input("Please enter range end: ")
