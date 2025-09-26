@@ -5,7 +5,7 @@ def filter_by_state(user_dict_list: list[dict], state: str = "EXECUTED") -> list
     filtered_by_state_dict_list = []
 
     for item in user_dict_list:
-        if item["state"] == state:
+        if item["state"] == state.upper():
             filtered_by_state_dict_list.append(item)
     return filtered_by_state_dict_list
 
@@ -13,5 +13,7 @@ def filter_by_state(user_dict_list: list[dict], state: str = "EXECUTED") -> list
 def sort_by_date(user_dict_list: list[dict], sorting_order: bool = True) -> list[dict]:
     """Функция принимает список словарей и необязательный параметр, задающий порядок сортировки
     (по умолчанию — убывание), и возвращает новый список, отсортированный по дате."""
-
-    return sorted(user_dict_list, key=lambda dictionary: dictionary["date"], reverse=sorting_order)
+    try:
+        return sorted(user_dict_list, key=lambda dictionary: dictionary["date"], reverse=sorting_order)
+    except KeyError:
+        return user_dict_list
