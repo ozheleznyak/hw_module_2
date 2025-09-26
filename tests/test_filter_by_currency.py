@@ -55,4 +55,3 @@ def test_no_currency_field_filter_by_currency(test_transactions_no_currency):
     """Проверяем работу генератора, если поля с валютой в списке транзакций нет"""
     generator = filter_by_currency(test_transactions_no_currency, "USD")
     assert next(generator) == "Transactions list doesnt contain currency field. Impossible to filter by currency"
-

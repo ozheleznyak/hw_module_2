@@ -36,7 +36,8 @@ def test_out_of_range_card_number_generator():
     generator = card_number_generator(-1, 5)
     assert (
         next(generator)
-        == "You have gone beyond the acceptable range of values. Please enter start/stop values in range 0 - 9999 9999 9999 9999"
+        == "You have gone beyond the acceptable range of values."
+           "Please enter start/stop values in range 0 - 9999 9999 9999 9999"
     )
 
 
