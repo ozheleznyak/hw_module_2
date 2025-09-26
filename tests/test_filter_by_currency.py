@@ -38,7 +38,21 @@ from src.generators import filter_by_currency
     ],
 )
 def test_normal_usage_filter_by_currency(test_transactions, expected1, expected2, expected3):
+    """Проверяем типичное использование генератора"""
     generator = filter_by_currency(test_transactions, "USD")
     assert next(generator) == expected1
     assert next(generator) == expected2
     assert next(generator) == expected3
+
+
+def test_no_such_currency_filter_by_currency(test_transactions):
+    """Проверяем работу генератора, если указанной валюты нет"""
+    generator = filter_by_currency(test_transactions, "abc")
+    assert next(generator) == "No transactions with such currency"
+
+
+def test_no_currency_field_filter_by_currency(test_transactions_no_currency):
+    """Проверяем работу генератора, если поля с валютой в списке транзакций нет"""
+    generator = filter_by_currency(test_transactions_no_currency, "USD")
+    assert next(generator) == "Transactions list doesnt contain currency field. Impossible to filter by currency"
+
