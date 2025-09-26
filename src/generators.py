@@ -34,8 +34,10 @@ def card_number_generator(start, stop):
     # user_currency = input("Please enter currency to filter: ")
 
 
-# usd_transactions = filter_by_currency(transactions.test_transactions(), user_currency) # обойти излишний вызов функции. мерять длинну списка транзцакций, запускать цикл по длинне и обрабатывать ошибку
+# usd_transactions = filter_by_currency(transactions.test_transactions(), "USD") # обойти излишний вызов функции. мерять длинну списка транзцакций, запускать цикл по длинне и обрабатывать ошибку
 # избыточных прогонов
+# for _ in range(len(transactions.test_transactions())):
+#     print(next(usd_transactions))
 
 # descriptions = transaction_descriptions(transactions.test_transactions())
 
@@ -45,5 +47,5 @@ def card_number_generator(start, stop):
 
 # range_start = input("Please enter range start: ")
 # range_end = input("Please enter range end: ")
-for card_number in card_number_generator(0, 1111222233334445):
-    print(card_number)
+# for card_number in card_number_generator(0, 1111222233334445):
+#     print(card_number)
