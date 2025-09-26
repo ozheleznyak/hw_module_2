@@ -17,19 +17,19 @@ def transaction_descriptions(transactions: list):
 def card_number_generator(start, stop):
     """Генератор, который выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999."""
-    if int(start) in range(0, 1000000000000000) and int(stop) in range(0, 1000000000000000):
-        if int(start) <= int(stop):
-            try:
+    try:
+        if int(start) in range(0, 1000000000000000) and int(stop) in range(0, 1000000000000000):
+            if int(start) <= int(stop):
                 for num in range(int(start), int(stop) + 1):
                     num_str = f"{num:016d}"
                     formatted_number = f"{num_str[:4]} {num_str[4:8]} {num_str[8:12]} {num_str[12:]}"
                     yield formatted_number
-            except ValueError:
-                yield "You've entered  wrong start or stop value. Please enter digits only in range 0 - 9999 9999 9999 9999"
+            else:
+                yield "Start value must be less or equal to stop. Please try again"
         else:
-            yield "Start value must be less than stop. Please try again"
-    else:
-        yield "You have gone beyond the acceptable range of values. Please enter start/stop values in range 0 - 9999 9999 9999 9999"
+            yield "You have gone beyond the acceptable range of values. Please enter start/stop values in range 0 - 9999 9999 9999 9999"
+    except ValueError:
+        yield "You've entered  wrong start or stop value. Please enter digits only in range 0 - 9999 9999 9999 9999"
 
     # user_currency = input("Please enter currency to filter: ")
 
@@ -45,5 +45,5 @@ def card_number_generator(start, stop):
 
 # range_start = input("Please enter range start: ")
 # range_end = input("Please enter range end: ")
-for card_number in card_number_generator(5, 1):
+for card_number in card_number_generator(0, 1111222233334445):
     print(card_number)
