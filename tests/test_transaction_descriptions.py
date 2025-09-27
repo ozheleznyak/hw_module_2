@@ -40,3 +40,9 @@ def test_no_descriptions_transaction_descriptions(test_transactions_no_descripti
     generator = transaction_descriptions(test_transactions_no_descriptions)
     assert next(generator) == "<No description for this transaction>"
     assert next(generator) == "<No description for this transaction>"
+
+
+def test_empty_list_transaction_descriptions():
+    """проверяем корректность обработки пустого списка"""
+    generator = transaction_descriptions([])
+    assert next(generator) == "Transaction list is empty"

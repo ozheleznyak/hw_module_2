@@ -37,13 +37,13 @@ if __name__ == "__main__":
     user_currency = input("Please enter currency to filter: ")
     usd_transactions = generators.filter_by_currency(transactions.test_transactions(), user_currency)
     for _ in range(len(transactions.test_transactions())):
-        print(next(usd_transactions))
+        print(next(usd_transactions, "Process finished"))
 
-    # descriptions = generators.transaction_descriptions(transactions.test_transactions())
-    # for _ in range(len(transactions.test_transactions_no_description())):
-    #     print(next(descriptions))
-    #
-    # range_start = input("Please enter range start, from 1 to 9999 9999 9999 9999: ")
-    # range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
-    # for card_number in generators.card_number_generator(range_start, range_end):
-    #     print(card_number)
+    descriptions = generators.transaction_descriptions(transactions.test_transactions())
+    for _ in range(len(transactions.test_transactions_no_description())):
+        print(next(descriptions, "Process finished"))
+
+    range_start = input("Please enter range start, from 1 to 9999 9999 9999 9999: ")
+    range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
+    for card_number in generators.card_number_generator(range_start, range_end):
+        print(card_number)

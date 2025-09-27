@@ -1,4 +1,4 @@
-from data import transactions
+# from data import transactions
 
 
 def filter_by_currency(transactions, currency):
@@ -19,11 +19,14 @@ def filter_by_currency(transactions, currency):
 
 def transaction_descriptions(transactions):
     """Генератор, который принимает список словарей с транзакциями и возвращает описание каждой операции по очереди."""
-    for item in transactions:
-        try:
-            yield item["description"]
-        except KeyError:
-            yield "<No description for this transaction>"
+    if not transactions:
+        yield "Transaction list is empty"
+    else:
+        for item in transactions:
+            try:
+                yield item["description"]
+            except KeyError:
+                yield "<No description for this transaction>"
 
 
 def card_number_generator(start, stop):
@@ -39,23 +42,25 @@ def card_number_generator(start, stop):
             else:
                 yield "Start value must be less or equal to stop. Please try again"
         else:
-            yield ("You have gone beyond the acceptable range of values."
-                   "Please enter start/stop values in range 1 - 9999 9999 9999 9999")
+            yield (
+                "You have gone beyond the acceptable range of values."
+                "Please enter start/stop values in range 1 - 9999 9999 9999 9999"
+            )
     except ValueError:
         yield "You've entered  wrong start or stop value. Please enter digits only in range 1 - 9999 9999 9999 9999"
 
 
-user_currency = input("Please enter currency to filter: ")
-usd_transactions = filter_by_currency(transactions.test_transactions(), user_currency)
-for _ in range(len(transactions.test_transactions())):
-    print(next(usd_transactions))
+# user_currency = input("Please enter currency to filter: ")
+# usd_transactions = filter_by_currency(transactions.test_transactions(), user_currency)
+# for _ in range(len(transactions.test_transactions())):
+#     print(next(usd_transactions, "Process finished"))
 
 
-descriptions = transaction_descriptions(transactions.test_transactions())
-for _ in range(len(transactions.test_transactions_no_description())):
-    print(next(descriptions))
+# descriptions = transaction_descriptions(transactions.test_transactions())
+# for _ in range(len(transactions.test_transactions_no_description())):
+#     print(next(descriptions, "Process finished"))
 
-range_start = input("Please enter range start, from 1 to 9999 9999 9999 9999: ")
-range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
-for card_number in card_number_generator(range_start, range_end):
-    print(card_number)
+# range_start = input("Please enter range start, from 1 to 9999 9999 9999 9999: ")
+# range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
+# for card_number in card_number_generator(range_start, range_end):
+#     print(card_number)
