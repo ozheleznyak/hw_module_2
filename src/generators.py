@@ -44,44 +44,18 @@ def card_number_generator(start, stop):
     except ValueError:
         yield "You've entered  wrong start or stop value. Please enter digits only in range 1 - 9999 9999 9999 9999"
 
-    # user_currency = input("Please enter currency to filter: ")
+
+user_currency = input("Please enter currency to filter: ")
+usd_transactions = filter_by_currency(transactions.test_transactions(), user_currency)
+for _ in range(len(transactions.test_transactions())):
+    print(next(usd_transactions))
 
 
-usd_transactions = filter_by_currency(
-    [
-        {
-            "id": 939719570,
-            "state": "EXECUTED",
-            "date": "2018-06-30T02:08:58.425572",
-            "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
-            "description": "Перевод организации",
-            "from": "Счет 75106830613657916952",
-            "to": "Счет 11776614605963066702",
-        },
-        {
-            "id": 142264268,
-            "state": "EXECUTED",
-            "date": "2019-04-04T23:20:05.206878",
-            "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
-            "description": "Перевод со счета на счет",
-            "from": "Счет 19708645243227258542",
-            "to": "Счет 75651667383060284188",
-        },
-    ],
-    "USD",
-)  # обойти излишний вызов функции. мерять длинну списка транзцакций, запускать цикл по длинне и обрабатывать ошибку
-# избыточных прогонов
-# for _ in range(len(transactions.test_transactions())):
-#     print(next(usd_transactions))
-
-
-descriptions = transaction_descriptions(transactions.test_transactions_no_description())
-
+descriptions = transaction_descriptions(transactions.test_transactions())
 for _ in range(len(transactions.test_transactions_no_description())):
-    # print(next(usd_transactions))
     print(next(descriptions))
 
-# range_start = input("Please enter range start: ")
-# range_end = input("Please enter range end: ")
-# for card_number in card_number_generator(0, 1111222233334445):
-#     print(card_number)
+range_start = input("Please enter range start, from 1 to 9999 9999 9999 9999: ")
+range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
+for card_number in card_number_generator(range_start, range_end):
+    print(card_number)
