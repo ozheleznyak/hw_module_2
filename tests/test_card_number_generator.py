@@ -1,3 +1,5 @@
+import pytest
+
 from src.generators import card_number_generator
 
 
@@ -25,22 +27,19 @@ def test_max_max_card_number_generator():
 def test_wrong_symbols_card_number_generator():
     """проверка, когда хотя бы одно из значений символьное"""
     generator = card_number_generator("bvc", 5)
-    assert (
-        next(generator)
-        == "You've entered  wrong start or stop value. Please enter digits only in range 1 - 9999 9999 9999 9999"
-    )
+    with pytest.raises(StopIteration):
+        assert next(generator) == StopIteration
 
 
 def test_out_of_range_card_number_generator():
     """проверка, когда хотя бы одно значение выходит за предел допустимого диапазона"""
     generator = card_number_generator(-1, 5)
-    assert (
-        next(generator) == "You have gone beyond the acceptable range of values."
-        "Please enter start/stop values in range 1 - 9999 9999 9999 9999"
-    )
+    with pytest.raises(StopIteration):
+        assert next(generator) == StopIteration
 
 
 def test_stop_less_start_card_number_generator():
     """проверка, когда конечное значение меньше начального"""
     generator = card_number_generator(10, 2)
-    assert next(generator) == "Start value must be less or equal to stop. Please try again"
+    with pytest.raises(StopIteration):
+        assert next(generator) == StopIteration

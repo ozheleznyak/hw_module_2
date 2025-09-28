@@ -48,10 +48,12 @@ def test_normal_usage_filter_by_currency(test_transactions, expected1, expected2
 def test_no_such_currency_filter_by_currency(test_transactions):
     """Проверяем работу генератора, если указанной валюты нет"""
     generator = filter_by_currency(test_transactions, "abc")
-    assert next(generator) == "No transactions with such currency"
+    with pytest.raises(StopIteration):
+        assert next(generator) == StopIteration
 
 
 def test_no_currency_field_filter_by_currency(test_transactions_no_currency):
     """Проверяем работу генератора, если поля с валютой в списке транзакций нет"""
     generator = filter_by_currency(test_transactions_no_currency, "USD")
-    assert next(generator) == "Transactions list doesnt contain currency field. Impossible to filter by currency"
+    with pytest.raises(StopIteration):
+        assert next(generator) == StopIteration
