@@ -46,4 +46,4 @@ def test_empty_list_transaction_descriptions():
     """проверяем корректность обработки пустого списка"""
     generator = transaction_descriptions([])
     with pytest.raises(StopIteration):
-        assert next(generator) == StopIteration
+        next(generator)

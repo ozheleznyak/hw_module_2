@@ -28,18 +28,18 @@ def test_wrong_symbols_card_number_generator():
     """проверка, когда хотя бы одно из значений символьное"""
     generator = card_number_generator("bvc", 5)
     with pytest.raises(StopIteration):
-        assert next(generator) == StopIteration
+        next(generator)
 
 
 def test_out_of_range_card_number_generator():
     """проверка, когда хотя бы одно значение выходит за предел допустимого диапазона"""
     generator = card_number_generator(-1, 5)
     with pytest.raises(StopIteration):
-        assert next(generator) == StopIteration
+        next(generator)
 
 
 def test_stop_less_start_card_number_generator():
     """проверка, когда конечное значение меньше начального"""
     generator = card_number_generator(10, 2)
     with pytest.raises(StopIteration):
-        assert next(generator) == StopIteration
+        next(generator)

@@ -49,11 +49,11 @@ def test_no_such_currency_filter_by_currency(test_transactions):
     """Проверяем работу генератора, если указанной валюты нет"""
     generator = filter_by_currency(test_transactions, "abc")
     with pytest.raises(StopIteration):
-        assert next(generator) == StopIteration
+        next(generator)
 
 
 def test_no_currency_field_filter_by_currency(test_transactions_no_currency):
     """Проверяем работу генератора, если поля с валютой в списке транзакций нет"""
     generator = filter_by_currency(test_transactions_no_currency, "USD")
     with pytest.raises(StopIteration):
-        assert next(generator) == StopIteration
+        next(generator)
