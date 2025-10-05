@@ -1,8 +1,6 @@
 from functools import wraps
 from time import ctime
 
-from coverage.misc import ensure_dir_for_file
-
 
 def log(filename):
     def logging(func):
@@ -21,18 +19,22 @@ def log(filename):
                 return result
             except Exception as exception_message:
                 end_time_exception = ctime()
-                error_message = f'Start: {start_time}\n"{func.__name__}": {exception_message}. Inputs: {args}, {kwargs}\n{end_time_exception}\n\n'
+                error_message = (f'Start: {start_time}\n"{func.__name__}": {exception_message}. '
+                                 f'Inputs: {args}, {kwargs}\n{end_time_exception}\n\n')
                 if filename:
                     with open(filename, "w") as log_file:
                         log_file.write(error_message)
                 else:
                     print(error_message)
+
         return wrapper
+
     return logging
 
 
 @log(filename="mylog.txt")
 def my_function(x, y):
     return x + y
+
 
 my_function(1, 2)
