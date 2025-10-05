@@ -36,13 +36,13 @@ def test_log_decorator_exception_console(capsys):
 def test_log_decorator_txt():
     """проверяем, что в текстовый файл выводится правильный лог, если с параметрами все ОК.
     Ожидаем, что обнаружится название функции my_function и слово OK"""
-    # file_path = os.path.join("..", "logs", "mylog.txt")
-    @log("mylog.txt")
+    file_path = os.path.join("..", "logs", "mylog1.txt")
+    @log("mylog1.txt")
     def my_function(x, y):
         return x + y
 
     my_function(3, 4)
-    with open("../logs/mylog.txt", "r", encoding="utf-8") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
     assert '"my_function"' in content
     assert 'OK' in content
@@ -52,13 +52,13 @@ def test_log_decorator_exception_txt():
     """проверяем, что в текстовый файл выводится правильный лог, если с параметрами все ОК.
     Ожидаем, что обнаружится название функции my_function и конструкция Inputs: ('3', '4'),
     подтверждающая, что это формат лога об ошибке"""
-    # file_path = os.path.join("..", "logs", "mylog.txt")
-    @log("mylog.txt")
+    file_path = os.path.join("..", "logs", "mylog2.txt")
+    @log("mylog2.txt")
     def my_function(x, y):
         return x / y
 
     my_function('3', '4')
-    with open("../logs/mylog.txt", "r", encoding="utf-8") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
     assert '"my_function"' in content
     assert "Inputs: ('3', '4')" in content
