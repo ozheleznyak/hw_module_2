@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 from time import ctime
 
@@ -12,7 +13,8 @@ def log(filename):
                 end_time = ctime()
                 log_message = f'Start: {start_time}\n"{func.__name__}": OK\nEnd: {end_time}\n\n'
                 if filename:
-                    with open(filename, "w") as log_file:
+                    file_path = os.path.join("..", "logs", filename)
+                    with open(file_path, "w", encoding='utf-8') as log_file:
                         log_file.write(log_message)
                 else:
                     print(log_message)
@@ -22,7 +24,8 @@ def log(filename):
                 error_message = (f'Start: {start_time}\n"{func.__name__}": {exception_message}. '
                                  f'Inputs: {args}, {kwargs}\n{end_time_exception}\n\n')
                 if filename:
-                    with open(filename, "w") as log_file:
+                    file_path_exception = os.path.join("..", "logs", filename)
+                    with open(file_path_exception, "w", encoding='utf-8') as log_file:
                         log_file.write(error_message)
                 else:
                     print(error_message)
