@@ -1,26 +1,29 @@
 from functools import wraps
-from time import time
+from time import ctime
+
+from coverage.misc import ensure_dir_for_file
+
 
 def log(filename):
     def logging(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            start_time = time()
+            start_time = ctime()
             try:
                 result = func(*args, **kwargs)
-                end_time = time()
-                log_message = f'{start_time}\n"{func.__name__}": {result}. Inputs: {args}, {kwargs}\n{end_time}'
+                end_time = ctime()
+                log_message = f'Start: {start_time}\n"{func.__name__}": OK\nEnd: {end_time}\n\n'
                 if filename:
-                    with open(filename, "a") as log_file:
+                    with open(filename, "w") as log_file:
                         log_file.write(log_message)
                 else:
                     print(log_message)
                 return result
             except Exception as exception_message:
-                end_time_exception = time()
-                error_message = f'{start_time}\n"{func.__name__}": {exception_message}. Inputs: {args}, {kwargs}\n{end_time_exception}'
+                end_time_exception = ctime()
+                error_message = f'Start: {start_time}\n"{func.__name__}": {exception_message}. Inputs: {args}, {kwargs}\n{end_time_exception}\n\n'
                 if filename:
-                    with open(filename, "a") as log_file:
+                    with open(filename, "w") as log_file:
                         log_file.write(error_message)
                 else:
                     print(error_message)
