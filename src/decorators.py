@@ -3,7 +3,7 @@ from functools import wraps
 from time import ctime
 
 
-def log(filename):
+def log(filename=None):
     def logging(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -35,7 +35,7 @@ def log(filename):
     return logging
 
 
-@log(filename="mylog.txt")
+@log()
 def my_function(x, y):
     return x + y
 
