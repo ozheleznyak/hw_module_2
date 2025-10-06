@@ -13,19 +13,21 @@ def log(filename=None):
                 end_time = ctime()
                 log_message = f'Start: {start_time}\n"{func.__name__}": OK\nEnd: {end_time}\n\n'
                 if filename:
-                    file_path = os.path.join("..", "logs", filename)
-                    with open(file_path, "w", encoding='utf-8') as log_file:
+                    file_path = os.path.join(os.path.dirname(__file__), "../logs", filename)
+                    with open(file_path, "w", encoding="utf-8") as log_file:
                         log_file.write(log_message)
                 else:
                     print(log_message)
                 return result
             except Exception as exception_message:
                 end_time_exception = ctime()
-                error_message = (f'Start: {start_time}\n"{func.__name__}": {exception_message}. '
-                                 f'Inputs: {args}, {kwargs}\n{end_time_exception}\n\n')
+                error_message = (
+                    f'Start: {start_time}\n"{func.__name__}": {exception_message}. '
+                    f"Inputs: {args}, {kwargs}\n{end_time_exception}\n\n"
+                )
                 if filename:
-                    file_path_exception = os.path.join("..", "logs", filename)
-                    with open(file_path_exception, "w", encoding='utf-8') as log_file:
+                    file_path_exception = os.path.join(os.path.dirname(__file__), "../logs", filename)
+                    with open(file_path_exception, "w", encoding="utf-8") as log_file:
                         log_file.write(error_message)
                 else:
                     print(error_message)
@@ -35,9 +37,9 @@ def log(filename=None):
     return logging
 
 
-# @log()
-# def my_function(x, y):
-#     return x / y
-#
-#
-# my_function("fkhjgfj", "kjhgkjhg")
+@log("log.txt")
+def my_function(x, y):
+    return x / y
+
+
+my_function(1, 2)
