@@ -4,6 +4,8 @@ from time import ctime
 
 
 def log(filename=None):
+    """декоратор записывает в файл или выводит в консоль имя функции и результат выполнения при успешной операции.
+    Имя функции, тип возникшей ошибки и входные параметры, если выполнение функции привело к ошибке."""
     def logging(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -11,7 +13,7 @@ def log(filename=None):
             try:
                 result = func(*args, **kwargs)
                 end_time = ctime()
-                log_message = f'Start: {start_time}\n"{func.__name__}": OK\nEnd: {end_time}\n\n'
+                log_message = f'Start: {start_time}\n"{func.__name__}": OK\nResult: {result}\nEnd: {end_time}\n\n'
                 if filename:
                     file_path = os.path.join(os.path.dirname(__file__), "../logs", filename)
                     with open(file_path, "w", encoding="utf-8") as log_file:
@@ -37,9 +39,9 @@ def log(filename=None):
     return logging
 
 
-@log("log.txt")
-def my_function(x, y):
-    return x / y
-
-
-my_function(1, 2)
+# @log("log.txt")
+# def my_function(x, y):
+#     return x / y
+#
+#
+# my_function(1, 2)

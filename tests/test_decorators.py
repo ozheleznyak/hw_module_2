@@ -49,6 +49,7 @@ def test_log_decorator_txt():
         content = f.read()
     assert '"my_function"' in content
     assert "OK" in content
+    assert "Result: "
 
 
 def test_log_decorator_exception_txt():
