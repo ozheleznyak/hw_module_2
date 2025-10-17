@@ -10,8 +10,10 @@ def external_api_exchange(amount: str, from_currency: str):
 
     if response.status_code == 200:
         return round(response.json()['result'], 2)
+    if response.status_code == 429:
+        raise Exception('Too many requests for your subscription')
     else:
         raise ValueError(f"Failed to get currency rate")
 
 
-# print(external_api_exchange("1000", "USD"))
+# print(external_api_exchange("10", "USD"))
