@@ -1,11 +1,48 @@
-from unittest.mock import patch
 from src import external_api
+import pytest
+import requests
+from unittest.mock import patch, Mock
 
 
-@patch('requests.get')
-def test_external_api_exchange(mock_get):
-    """"""
-    mock_get.return_value.status_code = 200
-    mock_get.return_value.json.return_value = {'result': 100.00}
-    assert external_api.external_api_exchange('USD', '10') == 100.00
-    # mock_get.assert_called_once_with('https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount=10&apikey=mbU2HKyaQBQPJaBT7fSDJFW4u0igJhBD')
+def test_successful_conversion():
+    """Тест успешного конвертирования валюты"""
+    mock_response = Mock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {'result': 75000.5}
+
+    with patch('requests.get', return_value=mock_response):
+        with patch.dict('os.environ', {'API_KEY': 'test_key'}):
+            result = external_api.external_api_exchange('1000', 'USD')
+            assert result == 75000.5
+
+
+def test_rate_limit_exceeded():
+    """Тест превышения лимита запросов"""
+    mock_response = Mock()
+    mock_response.status_code = 429
+
+    with patch('requests.get', return_value=mock_response):
+        with patch.dict('os.environ', {'API_KEY': 'test_key'}):
+            with pytest.raises(Exception) as exc_info:
+                external_api.external_api_exchange('1000', 'USD')
+            assert 'Too many requests for your subscription' in str(exc_info.value)
+
+
+def test_failed_request():
+    """Тест неудачного запроса с другим кодом ошибки"""
+    mock_response = Mock()
+    mock_response.status_code = 500
+
+    with patch('requests.get', return_value=mock_response):
+        with patch.dict('os.environ', {'API_KEY': 'test_key'}):
+            with pytest.raises(ValueError) as exc_info:
+                external_api.external_api_exchange('1000', 'USD')
+            assert 'Failed to get currency rate' in str(exc_info.value)
+
+
+def test_network_error():
+    """Тест ошибки сети"""
+    with patch('requests.get', side_effect=requests.exceptions.RequestException()):
+        with patch.dict('os.environ', {'API_KEY': 'test_key'}):
+            with pytest.raises(requests.exceptions.RequestException):
+                external_api.external_api_exchange('1000', 'USD')
