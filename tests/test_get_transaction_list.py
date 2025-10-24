@@ -1,6 +1,7 @@
-from src import utils
-from unittest.mock import patch
 import json
+from unittest.mock import patch
+
+from src import utils
 
 
 def test_get_transaction_list_success_with_mock_json_load():
@@ -47,4 +48,3 @@ def test_get_transaction_list_value_error():
         with patch("os.path.abspath", return_value="/test/path/file.json"):
             result = utils.get_transaction_list("/test/file.json")
             assert result == []
-

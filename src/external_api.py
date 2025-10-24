@@ -1,11 +1,14 @@
 import os
+
 import requests
 from dotenv import load_dotenv
 
-def external_api_exchange(amount: str, from_currency: str) -> float:
+
+def external_api_exchange(amount: str, currency: str) -> float:
+    """Функция конвертации в рубли с помощью внешнего API"""
     load_dotenv()
     api_key = os.getenv("API_KEY")
-    url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={from_currency}&amount={amount}&apikey={api_key}"
+    url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}&apikey={api_key}"
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -13,7 +16,4 @@ def external_api_exchange(amount: str, from_currency: str) -> float:
     if response.status_code == 429:
         raise Exception('Too many requests for your subscription')
     else:
-        raise ValueError(f"Failed to get currency rate")
-
-
-# print(external_api_exchange("10", "USD"))
+        raise ValueError('Failed to get currency rate')

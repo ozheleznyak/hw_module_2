@@ -1,7 +1,9 @@
-from src import external_api
+from unittest.mock import Mock, patch
+
 import pytest
 import requests
-from unittest.mock import patch, Mock
+
+from src import external_api
 
 
 def test_successful_conversion():
