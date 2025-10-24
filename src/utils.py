@@ -1,7 +1,7 @@
 import json
 import os
 
-from external_api import external_api_exchange
+from src import external_api
 
 def get_transaction_list(file_path: str) -> list:
     """yyy"""
@@ -33,12 +33,12 @@ def transaction_amount(file_path: str) -> float:
         else:
             amount = i["operationAmount"]["amount"]
             currency_to_exchange = i["operationAmount"]["currency"]["code"]
-            amount_exchange = external_api_exchange(amount=amount, from_currency=currency_to_exchange)
+            amount_exchange = external_api.external_api_exchange(amount=amount, from_currency=currency_to_exchange)
             total_amount += amount_exchange
     return total_amount
 
 
 # y = transaction_amount("../data/operations.json")
-y = get_transaction_list("../data/operations.json")
-print(y)
+# y = get_transaction_list("../data/operations.json")
+# print(y)
 

@@ -1,8 +1,6 @@
-from unittest.mock import patch
 from src import utils
+from unittest.mock import patch
 import json
-import pytest
-import os
 
 
 def test_get_transaction_list_success_with_mock_json_load():

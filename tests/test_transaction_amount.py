@@ -1,6 +1,6 @@
+import pytest
 from unittest.mock import patch
 from src import utils
-from src import external_api
 
 
 def test_transaction_amount_rub_only():
@@ -10,8 +10,8 @@ def test_transaction_amount_rub_only():
         {"operationAmount": {"amount": "500", "currency": {"code": "RUB"}}}
     ]
 
-    with patch('utils.get_transaction_list', return_value=mock_transactions):
-        with patch('external_api.external_api_exchange') as mock_exchange:
+    with patch('src.utils.get_transaction_list', return_value=mock_transactions):
+        with patch('src.external_api.external_api_exchange') as mock_exchange:
             mock_exchange.return_value = 0.0  # Не будет вызываться для RUB
 
             result = utils.transaction_amount("test.json")
@@ -26,23 +26,37 @@ def test_transaction_amount_foreign_currency():
         {"operationAmount": {"amount": "200", "currency": {"code": "EUR"}}}
     ]
 
-    with patch('utils.get_transaction_list', return_value=mock_transactions):
-        with patch('external_api.external_api_exchange') as mock_exchange:
-            # Мока для возврата значений для разных валют
+    with patch('src.utils.get_transaction_list', return_value=mock_transactions):
+        with patch('src.external_api.external_api_exchange') as mock_exchange:
+            # Мокаем возврат значений для разных валют
             mock_exchange.side_effect = [6500.0, 7200.0]  # USD и EUR в рублях
 
             result = utils.transaction_amount("test.json")
-            assert result == 13700.0  # 1000 + 6500 + 7200
+            assert result == 14700.0  # 1000 + 6500 + 7200
 
 
 def test_transaction_amount_empty_list():
     """Тест пустого списка транзакций"""
-    with patch('utils.get_transaction_list', return_value=[]):
-        with patch('external_api.external_api_exchange') as mock_exchange:
+    with patch('src.utils.get_transaction_list', return_value=[]):
+        with patch('src.external_api.external_api_exchange') as mock_exchange:
             mock_exchange.return_value = 0.0
 
             result = utils.transaction_amount("test.json")
             assert result == 0.0
+
+
+def test_transaction_amount_external_api_error():
+    """Тест обработки ошибки внешнего API"""
+    mock_transactions = [
+        {"operationAmount": {"amount": "100", "currency": {"code": "USD"}}}
+    ]
+
+    with patch('src.utils.get_transaction_list', return_value=mock_transactions):
+        with patch('src.external_api.external_api_exchange') as mock_exchange:
+            mock_exchange.side_effect = Exception("API error")
+
+            with pytest.raises(Exception):
+                utils.transaction_amount("test.json")
 
 
 def test_transaction_amount_zero_amount():
@@ -52,8 +66,8 @@ def test_transaction_amount_zero_amount():
         {"operationAmount": {"amount": "0", "currency": {"code": "USD"}}}
     ]
 
-    with patch('utils.get_transaction_list', return_value=mock_transactions):
-        with patch('external_api.external_api_exchange') as mock_exchange:
+    with patch('src.utils.get_transaction_list', return_value=mock_transactions):
+        with patch('src.external_api.external_api_exchange') as mock_exchange:
             mock_exchange.return_value = 0.0
 
             result = utils.transaction_amount("test.json")
