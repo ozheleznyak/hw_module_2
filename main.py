@@ -1,14 +1,14 @@
-# from src import masks
+from src import masks
 # from src import widget
 # from src import processing
-from src import generators
-from data import transactions
+# from src import generators
+# from data import transactions
 
 if __name__ == "__main__":
     # user_card_number = input("Enter your card number (16 digits without spaces): ")
-    # print(masks.get_mask_card_number("1596837868705199"))
+    print(masks.get_mask_card_number("fghj"))
     # user_account_number = input("Enter your account number (only digits): ")
-    # print(masks.get_mask_account(user_account_number))
+    print(masks.get_mask_account("11112222333344445555"))
     # transaction_date_format = input("Enter your transaction timestamp: ")
     # print(widget.get_date(transaction_date_format))
     # user_input = input("Enter your account or card number: ")
@@ -34,16 +34,16 @@ if __name__ == "__main__":
     # else:
     #     print(processing.sort_by_date(user_input_transaction_list))
 
-    user_currency = input("Please enter currency to filter: ")
-    usd_transactions = generators.filter_by_currency(transactions.test_transactions(), user_currency)
-    for _ in range(len(transactions.test_transactions())):
-        print(next(usd_transactions, "Process finished"))
-
-    descriptions = generators.transaction_descriptions(transactions.test_transactions())
-    for _ in range(len(transactions.test_transactions_no_description())):
-        print(next(descriptions, "Process finished"))
-
-    range_start = input("Please enter range start, from 1 to 9999 9999 9999 9999: ")
-    range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
-    for card_number in generators.card_number_generator(range_start, range_end):
-        print(card_number)
+    # user_currency = input("Please enter currency to filter: ")
+    # usd_transactions = generators.filter_by_currency(transactions.test_transactions(), user_currency)
+    # for _ in range(len(transactions.test_transactions())):
+    #     print(next(usd_transactions, "Process finished"))
+    #
+    # descriptions = generators.transaction_descriptions(transactions.test_transactions())
+    # for _ in range(len(transactions.test_transactions_no_description())):
+    #     print(next(descriptions, "Process finished"))
+    #
+    # range_start = input("Please enter range start, from 1 to 9999 9999 9999 9999: ")
+    # range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
+    # for card_number in generators.card_number_generator(range_start, range_end):
+    #     print(card_number)
