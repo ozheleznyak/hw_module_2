@@ -1,9 +1,9 @@
 import logging
 
 # создаем логгер, обработчик и форматтер
-logger = logging.getLogger('save_to_file')
+logger = logging.getLogger('masks')
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('logs/save_to_file.log')
+file_handler = logging.FileHandler('logs/masks.log')
 file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 
 # подключаем обработчик и форматер к логеру

@@ -73,6 +73,6 @@ def transaction_amount(file_path: str) -> float:
                 except Exception as ex:
                     logger.error(f'Произошла ошибка: {ex}')
         except KeyError:
-            logger.error(f'Внимание!!! В списке транзакций отсутствует необходимое поле')
+            logger.error('Внимание!!! В списке транзакций отсутствует необходимое поле')
     logger.info(f'Итоговая сумма транзакций: {total_amount}')
     return total_amount
