@@ -5,9 +5,9 @@ import os
 from src import external_api
 
 # создаем логгер, обработчик и форматтер
-logger = logging.getLogger('main')
+logger = logging.getLogger('utils')
 logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler('logs/main.log')
+file_handler = logging.FileHandler('logs/utils.log')
 file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 
 # подключаем обработчик и форматер к логеру
@@ -56,11 +56,23 @@ def transaction_amount(file_path: str) -> float:
 
     logger.info('Начало подсчета суммы транзакций')
     for i in user_transaction:
-        if i["operationAmount"]["currency"].get("code") == "RUB":
-            total_amount += float(i["operationAmount"]["amount"])
-        else:
-            amount = i["operationAmount"]["amount"]
-            currency_to_exchange = i["operationAmount"]["currency"]["code"]
-            amount_exchange = external_api.external_api_exchange(amount=amount, currency=currency_to_exchange)
-            total_amount += amount_exchange
+        try:
+            if i["operationAmount"]["currency"].get("code") == "RUB":
+                logger.info('Суммируем рублевые транзацкции')
+                total_amount += float(i["operationAmount"]["amount"])
+            else:
+                amount = i["operationAmount"]["amount"]
+                currency_to_exchange = i["operationAmount"]["currency"]["code"]
+                try:
+                    logger.info('Обращаемся к функции external_api_exchange за конвертацией валюты')
+                    amount_exchange = external_api.external_api_exchange(amount=amount, currency=currency_to_exchange)
+                    total_amount += amount_exchange
+                    logger.info('Успешная конвертация')
+                except ValueError as ex:
+                    logger.error(f'Произошла ошибка: {ex}')
+                except Exception as ex:
+                    logger.error(f'Произошла ошибка: {ex}')
+        except KeyError:
+            logger.error(f'Внимание!!! В списке транзакций отсутствует необходимое поле')
+    logger.info(f'Итоговая сумма транзакций: {total_amount}')
     return total_amount

@@ -1,4 +1,4 @@
-from src import masks
+from src import masks, utils
 
 # from src import widget
 # from src import processing
@@ -7,9 +7,9 @@ from src import masks
 
 if __name__ == "__main__":
     # user_card_number = input("Enter your card number (16 digits without spaces): ")
-    print(masks.get_mask_card_number("fghj"))
+    # print(masks.get_mask_card_number("fghj"))
     # user_account_number = input("Enter your account number (only digits): ")
-    print(masks.get_mask_account("11112222333344445555"))
+    # print(masks.get_mask_account("11112222333344445555"))
     # transaction_date_format = input("Enter your transaction timestamp: ")
     # print(widget.get_date(transaction_date_format))
     # user_input = input("Enter your account or card number: ")
@@ -48,3 +48,9 @@ if __name__ == "__main__":
     # range_end = input("Please enter range end, from 1 to 9999 9999 9999 9999: ")
     # for card_number in generators.card_number_generator(range_start, range_end):
     #     print(card_number)
+
+    file_path = "data/operations.json"
+    # print(utils.get_transaction_list(file_path))
+    print(utils.transaction_amount(file_path))
+
+
