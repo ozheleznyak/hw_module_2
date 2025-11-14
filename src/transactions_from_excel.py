@@ -1,8 +1,9 @@
-import pandas as pd
 import json
 import os
 from pathlib import Path
-from typing import Union, List, Dict, Any
+from typing import Any, Dict, List, Union
+
+import pandas as pd
 
 
 def get_transactions_from_excel(file_path: str) -> Union[List[Dict[str, Any]], str]:
@@ -35,7 +36,7 @@ def get_transactions_from_excel(file_path: str) -> Union[List[Dict[str, Any]], s
     except Exception as e:
         result_list = []
         print(f"Something went wrong: {e}")
-        
+
     # для удобства просмотра и н всякий случай передаем результат в json
     file_name_json = Path(__file__).parent.parent / 'data' / 'output_excel.json'
     try:
@@ -44,8 +45,4 @@ def get_transactions_from_excel(file_path: str) -> Union[List[Dict[str, Any]], s
     except Exception as e:
         return f"Something went wrong with json: {e}"
 
-
     return result_list
-
-
-# print(get_transactions_from_excel('../data/transactions_excel.xlsx'))
