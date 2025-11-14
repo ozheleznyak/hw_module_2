@@ -6,8 +6,8 @@ from typing import Any, Dict, List, Union
 import pandas as pd
 
 
-def get_transactions_from_excel(file_path: str) -> Union[List[Dict[str, Any]], str]:
-    """функция принимает на вход путь до csv-файла и возвращает список транзакций
+def get_transactions_from_excel(file_path: str) -> Union[List[Dict[Any]], str]:
+    """функция принимает на вход путь до xlsx-файла и возвращает список транзакций
     + заносит его в ../data/../data/output_excel.json"""
 
     file_name = os.path.abspath(file_path)
