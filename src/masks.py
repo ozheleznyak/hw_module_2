@@ -1,10 +1,10 @@
 import logging
 
 # создаем логгер, обработчик и форматтер
-logger = logging.getLogger('masks')
+logger = logging.getLogger("masks")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('logs/masks.log')
-file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
+file_handler = logging.FileHandler("logs/masks.log")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
 
 # подключаем обработчик и форматер к логеру
 file_handler.setFormatter(file_formatter)
@@ -30,10 +30,10 @@ def get_mask_card_number(user_card_number: str) -> str:
             if n == 4 or n == 9 or n == 14:
                 user_card_number_list.insert(n, " ")
         masked_user_card_number = "".join(user_card_number_list)
-        logger.info(f'Создана маска карты: {masked_user_card_number}')
+        logger.info(f"Создана маска карты: {masked_user_card_number}")
         return masked_user_card_number
     else:
-        logger.error(f'Ошибка. Введен неверный формат карты: {user_card_number}')
+        logger.error(f"Ошибка. Введен неверный формат карты: {user_card_number}")
         raise ValueError("You've entered wrong card number. Please try again")
 
 
@@ -48,8 +48,8 @@ def get_mask_account(user_account_number: str) -> str:
         for n in range(len(user_account_number_list) - 4):
             user_account_number_list[n] = "*"
         masked_user_account_number = "".join(user_account_number_list)
-        logger.info(f'Создана маска счета: {masked_user_account_number}')
+        logger.info(f"Создана маска счета: {masked_user_account_number}")
         return masked_user_account_number
     else:
-        logger.error(f'Ошибка. Введен неверный формат счета: {user_account_number}')
+        logger.error(f"Ошибка. Введен неверный формат счета: {user_account_number}")
         raise ValueError("You've entered wrong account number. Please try again")
