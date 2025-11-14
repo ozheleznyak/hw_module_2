@@ -1,12 +1,12 @@
 import json
 import os
 from pathlib import Path
-from typing import List, Union
+from typing import Any
 
 import pandas as pd
 
 
-def get_transactions_from_csv(file_path: str) -> Union[List, str]:
+def get_transactions_from_csv(file_path: str) -> Any:
     """функция принимает на вход путь до csv-файла и возвращает список транзакций
     + заносит его в ../data/../data/output_csv.json"""
 

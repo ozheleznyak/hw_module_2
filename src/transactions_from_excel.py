@@ -1,12 +1,12 @@
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any
 
 import pandas as pd
 
 
-def get_transactions_from_excel(file_path: str) -> Union[List[Dict[Any]], str]:
+def get_transactions_from_excel(file_path: str) -> Any:
     """функция принимает на вход путь до xlsx-файла и возвращает список транзакций
     + заносит его в ../data/../data/output_excel.json"""
 

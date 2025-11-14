@@ -1,5 +1,5 @@
 # from src import masks, utils
-from src import transactions_from_excel
+from src import transactions_from_excel, transactions_from_csv
 
 # from src import widget
 # from src import processing
@@ -55,3 +55,4 @@ if __name__ == "__main__":
     # print(utils.transaction_amount(file_path))
 
     print(transactions_from_excel.get_transactions_from_excel('data/transactions_excel.xlsx'))
+    print(transactions_from_csv.get_transactions_from_csv('data/transactions.csv'))
