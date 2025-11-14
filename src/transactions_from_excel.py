@@ -1,10 +1,13 @@
 import pandas as pd
 import json
 import os
+from pathlib import Path
+from typing import Union, List, Dict, Any
 
 
-def get_transactions_from_excel(file_path: str) -> list[dict]:
-    """"""
+def get_transactions_from_excel(file_path: str) -> Union[List[Dict[str, Any]], str]:
+    """функция принимает на вход путь до csv-файла и возвращает список транзакций
+    + заносит его в ../data/../data/output_excel.json"""
 
     file_name = os.path.abspath(file_path)
 
@@ -34,12 +37,13 @@ def get_transactions_from_excel(file_path: str) -> list[dict]:
         print(f"Something went wrong: {e}")
         
     # для удобства просмотра и н всякий случай передаем результат в json
-    file_name_json = os.path.abspath('../data/output_excel.json')
+    file_name_json = Path(__file__).parent.parent / 'data' / 'output_excel.json'
     try:
         with open(file_name_json, 'w', encoding='UTF-8') as f:
             json.dump(result_list, f, indent=4)
     except Exception as e:
-        print(f"Something went wrong with json: {e}")
+        return f"Something went wrong with json: {e}"
+
 
     return result_list
 
