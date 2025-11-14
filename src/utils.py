@@ -1,14 +1,17 @@
 import json
 import logging
 import os
+from pathlib import Path
+from typing import Any
 
 from src import external_api
 
 # создаем логгер, обработчик и форматтер
-logger = logging.getLogger('utils')
+logger = logging.getLogger("utils")
 logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler('logs/utils.log')
-file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
+file_handler_path = Path(__file__).parent.parent / "logs" / "utils.log"
+file_handler = logging.FileHandler(file_handler_path)
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
 
 # подключаем обработчик и форматер к логеру
 file_handler.setFormatter(file_formatter)
@@ -24,55 +27,58 @@ def get_transaction_list(file_path: str) -> list:
     file_name = os.path.abspath(file_path)
 
     try:
-        logger.info(f'Считываем данные из указанного файла: {file_path}')
+        logger.info(f"Считываем данные из указанного файла: {file_path}")
         with open(file_name, encoding="UTF-8") as json_file:
             transaction_list = json.load(json_file)
-        logger.info(f'Список считанных транзакций:\n{transaction_list}')
+        logger.info(f"Список считанных транзакций:\n{transaction_list}")
         return transaction_list
     except json.JSONDecodeError:
-        logger.error(f'Ошибка преобразования данных из {file_path}')
+        logger.error(f"Ошибка преобразования данных из {file_path}")
         return transaction_list
     except TypeError:
-        logger.error(f'Ошибка. Неподдерживаемый тип данных в {file_path}')
+        logger.error(f"Ошибка. Неподдерживаемый тип данных в {file_path}")
         return transaction_list
     except ValueError:
-        logger.error(f'Ошибка. Некорректные данные в {file_path}')
+        logger.error(f"Ошибка. Некорректные данные в {file_path}")
         return transaction_list
     except FileNotFoundError:
-        logger.error(f'Ошибка. Отсутствует {file_path}')
+        logger.error(f"Ошибка. Отсутствует {file_path}")
         return transaction_list
 
 
-def transaction_amount(file_path: str) -> float:
+def transaction_amount(file_path: str) -> Any:
     """Функция принимает на вход транзакцию и возвращает сумму транзакции в рублях,
     тип данных — float. Для транзакций в валюте отличной от RUB, происходит обращение к внешнему API
     для получения текущего курса валют и конвертации суммы операции в рубли"""
 
-    logger.info(f'Считываем данные из указанного файла: {file_path}')
+    logger.info(f"Считываем данные из указанного файла: {file_path}")
     user_transaction = get_transaction_list(file_path)
-    logger.info(f'Список считанных транзакций:\n{user_transaction}')
+    logger.info(f"Список считанных транзакций:\n{user_transaction}")
 
     total_amount = 0.0
 
-    logger.info('Начало подсчета суммы транзакций')
+    logger.info("Начало подсчета суммы транзакций")
     for i in user_transaction:
         try:
             if i["operationAmount"]["currency"].get("code") == "RUB":
-                logger.info('Суммируем рублевые транзацкции')
+                logger.info("Суммируем рублевые транзацкции")
                 total_amount += float(i["operationAmount"]["amount"])
             else:
                 amount = i["operationAmount"]["amount"]
                 currency_to_exchange = i["operationAmount"]["currency"]["code"]
                 try:
-                    logger.info('Обращаемся к функции external_api_exchange за конвертацией валюты')
+                    logger.info("Обращаемся к функции external_api_exchange за конвертацией валюты")
                     amount_exchange = external_api.external_api_exchange(amount=amount, currency=currency_to_exchange)
                     total_amount += amount_exchange
-                    logger.info('Успешная конвертация')
+                    logger.info("Успешная конвертация")
                 except ValueError as ex:
-                    logger.error(f'Произошла ошибка: {ex}')
+                    logger.error(f"Произошла ошибка: {ex}")
+                    return f"Ошибка конвертации: {ex}. Процесс остановлен. Смотрите лог"
                 except Exception as ex:
-                    logger.error(f'Произошла ошибка: {ex}')
+                    logger.error(f"Произошла ошибка: {ex}")
+                    return f"Ошибка конвертации: {ex}. Процесс остановлен. Смотрите лог"
         except KeyError:
-            logger.error('Внимание!!! В списке транзакций отсутствует необходимое поле')
-    logger.info(f'Итоговая сумма транзакций: {total_amount}')
+            logger.error("Внимание!!! В списке транзакций отсутствует необходимое поле")
+            return "Произошла ошибка. Процесс остановлен. Смотрите лог"
+    logger.info(f"Итоговая сумма транзакций: {total_amount}")
     return total_amount
