@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # print(masks.get_mask_card_number("1111222233334444"))
     # user_account_number = input("Enter your account number (only digits): ")
     # print(masks.get_mask_account("11112222333344445555"))
-    # transaction_date_format = input("Enter your transaction timestamp: ")
+    # transaction_date_format = input("Enter your transaction timestamp: ")git status
     # print(widget.get_date(transaction_date_format))
     # user_input = input("Enter your account or card number: ")
     # print(widget.mask_account_card(user_input))
@@ -54,5 +54,5 @@ if __name__ == "__main__":
     # # print(utils.get_transaction_list(file_path))
     # print(utils.transaction_amount(file_path))
 
-    print(transactions_from_excel.get_transactions_from_excel('data/transactions_excel.xlsx'))
-    print(transactions_from_csv.get_transactions_from_csv('data/transactions.csv'))
+    print(transactions_from_excel.get_transactions_from_excel("data/transactions_excel.xlsx"))
+    print(transactions_from_csv.get_transactions_from_csv("data/transactions.csv"))
