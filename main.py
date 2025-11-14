@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # print(masks.get_mask_card_number("1111222233334444"))
     # user_account_number = input("Enter your account number (only digits): ")
     # print(masks.get_mask_account("11112222333344445555"))
-    # transaction_date_format = input("Enter your transaction timestamp: ")git status
+    # transaction_date_format = input("Enter your transaction timestamp: ")
     # print(widget.get_date(transaction_date_format))
     # user_input = input("Enter your account or card number: ")
     # print(widget.mask_account_card(user_input))
