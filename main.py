@@ -1,5 +1,5 @@
 # from src import masks, utils
-from src import transactions_from_excel, transactions_from_csv
+from src import transactions_from_csv, transactions_from_excel
 
 # from src import widget
 # from src import processing
