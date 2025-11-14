@@ -14,8 +14,10 @@ def get_transactions_from_csv(file_path: str) -> Any:
     result_list = []
 
     try:
+        # создаем датафрейм, попутно выбрасывая пустые строки
         csv_data = pd.read_csv(file_name, sep=';', skip_blank_lines=True, dtype={'id': 'Int64'})
 
+        # всё сложно: чтобы занести это всё в json надо специально обрабатывать пустые ячейки и тип Nan менять на ""
         for index, row in csv_data.iterrows():
             record = {
                 "id": int(row['id']) if pd.notna(row['id']) else None,
@@ -38,11 +40,12 @@ def get_transactions_from_csv(file_path: str) -> Any:
         result_list = []
         print(f"Something went wrong: {e}")
 
+    # для удобства просмотра и на всякий случай передаем результат в json
     file_name_json = Path(__file__).parent.parent / 'data' / 'output_csv.json'
     try:
         with open(file_name_json, 'w', encoding='UTF-8') as f:
             json.dump(result_list, f, indent=4)
     except Exception as e:
-        return f"Something went wrong with json: {e}"
+        print(f"Something went wrong with json: {e}\n\n")
 
     return result_list

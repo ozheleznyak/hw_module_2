@@ -16,7 +16,7 @@ def get_transactions_from_excel(file_path: str) -> Any:
         excel_data = pd.read_excel(file_name)
         # убираем пустые строки, чтобы они не вызывали ошибок при работе других функций
         excel_data_filtered_from_empty_rows = excel_data.dropna(how='all')
-        # преобразуем таблицу в список словарей с доп. вложенностью, по аналогии с предыдущими заданиями
+        # преобразовываем таблицу в список словарей с доп. вложенностью, по аналогии с предыдущими заданиями
         result_list = excel_data_filtered_from_empty_rows.apply(lambda row: {
             "id": int(row['id']),
             "state": row['state'],
@@ -37,12 +37,12 @@ def get_transactions_from_excel(file_path: str) -> Any:
         result_list = []
         print(f"Something went wrong: {e}")
 
-    # для удобства просмотра и н всякий случай передаем результат в json
+    # для удобства просмотра и на всякий случай передаем результат в json
     file_name_json = Path(__file__).parent.parent / 'data' / 'output_excel.json'
     try:
         with open(file_name_json, 'w', encoding='UTF-8') as f:
             json.dump(result_list, f, indent=4)
     except Exception as e:
-        return f"Something went wrong with json: {e}"
+        print(f"Something went wrong with json: {e}\n\n")
 
     return result_list
